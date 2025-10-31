@@ -1,0 +1,75 @@
+package com.example.convergenceintegration.service;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import com.example.convergenceintegration.entity.DataTransfer;
+import com.example.convergenceintegration.entity.SourceSystem;
+import com.example.convergenceintegration.entity.TargetSystem;
+import com.example.convergenceintegration.repository.DataTransferRepository;
+import com.example.convergenceintegration.repository.SourceSystemRepository;
+import com.example.convergenceintegration.repository.TargetSystemRepository;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+@RequiredArgsConstructor
+public class DataTransferService {
+
+    private final DataTransferRepository transferRepo;
+    private final SourceSystemRepository sourceRepo;
+    private final TargetSystemRepository targetRepo;
+
+    // Get all transfers
+    public List<DataTransfer> getAllTransfers() {
+        return transferRepo.findAll();
+    }
+
+    // Get transfer by ID
+    public Optional<DataTransfer> getTransferById(Long id) {
+        return transferRepo.findById(id);
+    }
+
+    // Initiate a new transfer using source and target IDs
+    public DataTransfer initiateTransfer(Long sourceId, Long targetId, String type) {
+        SourceSystem source = sourceRepo.findById(sourceId)
+                .orElseThrow(() -> new RuntimeException("Source system not found"));
+        TargetSystem target = targetRepo.findById(targetId)
+                .orElseThrow(() -> new RuntimeException("Target system not found"));
+
+        DataTransfer transfer = DataTransfer.builder()
+                .sourceSystem(source)
+                .targetSystem(target)
+                .transferType(type)
+                .startTime(LocalDateTime.now())
+                .status("IN_PROGRESS")
+                .build();
+
+        return transferRepo.save(transfer);
+    }
+
+    // Update an existing transfer
+    public DataTransfer updateTransfer(Long id, Long sourceId, Long targetId, DataTransfer updated) {
+        return transferRepo.findById(id).map(t -> {
+            SourceSystem source = sourceRepo.findById(sourceId)
+                    .orElseThrow(() -> new RuntimeException("Source system not found"));
+            TargetSystem target = targetRepo.findById(targetId)
+                    .orElseThrow(() -> new RuntimeException("Target system not found"));
+
+            t.setSourceSystem(source);
+            t.setTargetSystem(target);
+            t.setTransferType(updated.getTransferType());
+            t.setStartTime(updated.getStartTime());
+            t.setEndTime(updated.getEndTime());
+            t.setStatus(updated.getStatus());
+
+            return transferRepo.save(t);
+        }).orElseThrow(() -> new RuntimeException("Transfer not found"));
+    }
+
+    // Delete a transfer
+    public void deleteTransfer(Long id) {
+        transferRepo.deleteById(id);
+    }
+}

@@ -1,0 +1,13 @@
+com\example\client360\entity\Project.class
+com\example\client360\service\ClientService.class
+com\example\client360\Repository\ProjectRepository.class
+com\example\client360\service\ApiLogService.class
+com\example\client360\controller\ProjectController.class
+com\example\client360\entity\ApiLog.class
+com\example\client360\service\ProjectService.class
+com\example\client360\Repository\ClientRepository.class
+com\example\client360\Repository\ApiLogRepository.class
+com\example\client360\Client360Application.class
+com\example\client360\controller\ClientController.class
+com\example\client360\entity\Client.class
+com\example\client360\controller\ApiLogController.class

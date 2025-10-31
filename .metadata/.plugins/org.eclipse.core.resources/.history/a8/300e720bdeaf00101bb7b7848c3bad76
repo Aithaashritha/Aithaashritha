@@ -1,0 +1,21 @@
+package com.example.convergenceintegration.service;
+
+import org.springframework.stereotype.Service;
+import java.util.List;
+import com.example.convergenceintegration.entity.TargetSystem;
+import com.example.convergenceintegration.repository.TargetSystemRepository;
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class TargetSystemService {
+    private final TargetSystemRepository repo;
+
+    public List<TargetSystem> getAll() {
+        return repo.findAll();
+    }
+
+    public TargetSystem add(TargetSystem t) {
+        return repo.save(t);
+    }
+}

@@ -1,0 +1,47 @@
+package com.employee;
+
+import java.util.*;
+
+class Employee {
+    private int empID;
+    private String empName;
+    private double salary;
+    private String location;
+
+    // Default constructor
+    public Employee() {
+        empID = 0;
+        empName = "Unknown";
+        salary = 0.0;
+        location = "Not Assigned";
+    }
+
+    // Parameterized constructor
+    public Employee(int empID, String empName, double salary, String location) {
+        this.empID = empID;
+        this.empName = empName;
+        this.salary = salary;
+        this.location = location;
+    }
+
+    public void displayEmployeeDetails() {
+        System.out.println("ID: " + empID +
+                           " | Name: " + empName +
+                           " | Salary: ₹" + salary +
+                           " | Location: " + location);
+    }
+}
+
+public class EmployeeDetails {
+    public static void main(String[] args) {
+        // using both constructors
+        Employee emp1 = new Employee();
+        Employee emp2 = new Employee(102, "Swetha", 35000, "Hyderabad");
+        Employee emp3 = new Employee(103, "Rahul", 45000, "Bangalore");
+
+        System.out.println("===== Employee Details =====");
+        emp1.displayEmployeeDetails();
+        emp2.displayEmployeeDetails();
+        emp3.displayEmployeeDetails();
+    }
+}

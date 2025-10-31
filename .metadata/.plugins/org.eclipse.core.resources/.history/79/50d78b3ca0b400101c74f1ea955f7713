@@ -1,0 +1,48 @@
+package com.example.clinic.controller;
+
+import org.springframework.web.bind.annotation.*;
+import com.example.clinic.entity.Doctor;
+import com.example.clinic.service.DoctorService;
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/doctors")
+@CrossOrigin("*")
+public class DoctorController {
+
+    private final DoctorService service;
+
+    public DoctorController(DoctorService service) {
+        this.service = service;
+    }
+
+    // ✅ GET all doctors
+    @GetMapping
+    public List<Doctor> getAllDoctors() {
+        return service.getAllDoctors();
+    }
+
+    // ✅ GET doctor by ID
+    @GetMapping("/{id}")
+    public Doctor getDoctorById(@PathVariable Long id) {
+        return service.getDoctorById(id);
+    }
+
+    // ✅ POST (create a new doctor)
+    @PostMapping
+    public Doctor createDoctor(@RequestBody Doctor doctor) {
+        return service.saveDoctor(doctor);
+    }
+
+    // ✅ PUT (update an existing doctor)
+    @PutMapping("/{id}")
+    public Doctor updateDoctor(@PathVariable Long id, @RequestBody Doctor doctor) {
+        return service.updateDoctor(id, doctor);
+    }
+
+    // ✅ DELETE doctor by ID
+    @DeleteMapping("/{id}")
+    public void deleteDoctor(@PathVariable Long id) {
+        service.deleteDoctor(id);
+    }
+}

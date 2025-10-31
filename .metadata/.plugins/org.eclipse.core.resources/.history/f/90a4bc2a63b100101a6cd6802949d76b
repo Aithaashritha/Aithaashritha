@@ -1,0 +1,43 @@
+package com.example.mall.service;
+
+import com.example.mall.entity.Shop;
+import com.example.mall.repository.ShopRepository;
+import org.springframework.stereotype.Service;
+import java.util.List;
+
+@Service
+public class ShopService {
+
+    private final ShopRepository shopRepository;
+
+    public ShopService(ShopRepository shopRepository) {
+        this.shopRepository = shopRepository;
+    }
+
+    public List<Shop> getAllShops() {
+        return shopRepository.findAll();
+    }
+
+    public Shop getShopById(Long id) {
+        return shopRepository.findById(id).orElse(null);
+    }
+
+    public Shop createShop(Shop shop) {
+        return shopRepository.save(shop);
+    }
+
+    public Shop updateShop(Long id, Shop details) {
+        Shop shop = shopRepository.findById(id).orElse(null);
+        if (shop != null) {
+            shop.setName(details.getName());
+            shop.setCategory(details.getCategory());
+            shop.setMall(details.getMall());
+            return shopRepository.save(shop);
+        }
+        return null;
+    }
+
+    public void deleteShop(Long id) {
+        shopRepository.deleteById(id);
+    }
+}

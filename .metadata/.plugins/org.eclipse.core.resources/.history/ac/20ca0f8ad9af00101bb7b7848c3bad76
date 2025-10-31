@@ -1,0 +1,5 @@
+package com.example.convergenceintegration.entity;
+
+public class DataTransfer {
+
+}

@@ -1,0 +1,43 @@
+package com.example.convergenceintegration.controller;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+import com.example.convergenceintegration.entity.SourceSystem;
+import com.example.convergenceintegration.service.SourceSystemService;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/sources")
+@RequiredArgsConstructor
+public class SourceSystemController {
+
+    private final SourceSystemService service;
+
+    @GetMapping
+    public List<SourceSystem> getAll() {
+        return service.getAllSources();
+    }
+
+    @GetMapping("/{id}")
+    public SourceSystem getById(@PathVariable Long id) {
+        return service.getSourceById(id)
+                .orElseThrow(() -> new RuntimeException("Source system not found"));
+    }
+
+    @PostMapping
+    public SourceSystem create(@RequestBody SourceSystem source) {
+        return service.createSource(source);
+    }
+
+    @PutMapping("/{id}")
+    public SourceSystem update(@PathVariable Long id, @RequestBody SourceSystem source) {
+        return service.updateSource(id, source);
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable Long id) {
+        service.deleteSource(id);
+        return "Deleted source system with id: " + id;
+    }
+}

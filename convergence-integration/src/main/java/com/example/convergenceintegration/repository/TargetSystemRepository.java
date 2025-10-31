@@ -1,0 +1,7 @@
+package com.example.convergenceintegration.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.convergenceintegration.entity.TargetSystem;
+
+public interface TargetSystemRepository extends JpaRepository<TargetSystem, Long> {
+}

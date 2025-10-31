@@ -1,0 +1,23 @@
+package com.example.convergenceintegration.entity;
+
+import jakarta.persistence.*;
+import lombok.*;
+import java.time.LocalDateTime;
+
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class DataTransfer {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String sourceSystem;
+    private String targetSystem;
+    private String transferType;
+    private String status;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
+}

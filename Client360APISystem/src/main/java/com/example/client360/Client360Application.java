@@ -1,0 +1,13 @@
+package com.example.client360;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class Client360Application {
+
+    public static void main(String[] args) {
+        SpringApplication.run(Client360Application.class, args);
+        System.out.println("Client360 Spring Boot application started on port 8083");
+    }
+}

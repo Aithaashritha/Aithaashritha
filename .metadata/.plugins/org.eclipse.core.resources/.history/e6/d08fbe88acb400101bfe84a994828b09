@@ -1,0 +1,44 @@
+package com.example.clinic.service;
+
+import org.springframework.stereotype.Service;
+import com.example.clinic.entity.Appointment;
+import com.example.clinic.repository.AppointmentRepository;
+import java.util.List;
+
+@Service
+public class AppointmentService {
+
+    private final AppointmentRepository repo;
+
+    public AppointmentService(AppointmentRepository repo) {
+        this.repo = repo;
+    }
+
+    public List<Appointment> getAllAppointments() {
+        return repo.findAll();
+    }
+
+    public Appointment getAppointmentById(Long id) {
+        return repo.findById(id).orElse(null);
+    }
+
+    public Appointment saveAppointment(Appointment appointment) {
+        return repo.save(appointment);
+    }
+
+    public Appointment updateAppointment(Long id, Appointment appointment) {
+        Appointment existing = repo.findById(id).orElse(null);
+        if (existing != null) {
+            existing.setAppointmentDate(appointment.getAppointmentDate());
+            existing.setReason(appointment.getReason()); // ✅ fixed here
+            existing.setDoctor(appointment.getDoctor());
+            existing.setPatient(appointment.getPatient());
+            return repo.save(existing);
+        }
+        return null;
+    }
+
+    public void deleteAppointment(Long id) {
+        repo.deleteById(id);
+    }
+}

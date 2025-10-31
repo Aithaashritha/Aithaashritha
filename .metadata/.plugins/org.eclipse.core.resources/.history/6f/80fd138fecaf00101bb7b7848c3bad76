@@ -1,0 +1,38 @@
+package com.example.convergenceintegration.entity;
+
+import jakarta.persistence.*;
+import lombok.*;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "data_transfer")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class DataTransfer {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "source_system_id", nullable = false)
+    private SourceSystem sourceSystem;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "target_system_id", nullable = false)
+    private TargetSystem targetSystem;
+
+    @Column(name = "transfer_type")
+    private String transferType; // FULL or DELTA
+
+    @Column(name = "start_time")
+    private LocalDateTime startTime;
+
+    @Column(name = "end_time")
+    private LocalDateTime endTime;
+
+    @Column(name = "status")
+    private String status; // SUCCESS, FAILED, IN_PROGRESS
+}

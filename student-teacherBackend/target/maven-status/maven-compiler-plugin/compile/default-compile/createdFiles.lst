@@ -1,0 +1,9 @@
+com\example\teacherstudent\controller\TeacherController.class
+com\example\teacherstudent\entity\Teacher.class
+com\example\teacherstudent\TeacherStudentBackendApplication.class
+com\example\teacherstudent\service\StudentService.class
+com\example\teacherstudent\repository\StudentRepository.class
+com\example\teacherstudent\service\TeacherService.class
+com\example\teacherstudent\controller\StudentController.class
+com\example\teacherstudent\entity\Student.class
+com\example\teacherstudent\repository\TeacherRepository.class

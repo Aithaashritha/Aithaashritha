@@ -1,0 +1,24 @@
+package com.example.client360.service;
+
+import org.springframework.stereotype.Service;
+import java.util.List;
+import com.example.client360.entity.Client;
+import com.example.client360.Repository.ClientRepository;
+
+@Service
+public class ClientService {
+
+    private final ClientRepository repo;
+
+    public ClientService(ClientRepository repo) {
+        this.repo = repo;
+    }
+
+    public List<Client> getAllClients() {
+        return repo.findAll();
+    }
+
+    public Client createClient(Client client) {
+        return repo.save(client);
+    }
+}

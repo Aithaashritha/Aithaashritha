@@ -1,0 +1,16 @@
+package com.example.clinic.service;
+
+import org.springframework.stereotype.Service;
+import com.example.clinic.entity.Doctor;
+import com.example.clinic.repository.DoctorRepository;
+import java.util.List;
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class DoctorService {
+    private final DoctorRepository repo;
+
+    public List<Doctor> getAllDoctors() { return repo.findAll(); }
+    public Doctor saveDoctor(Doctor doctor) { return repo.save(doctor); }
+}

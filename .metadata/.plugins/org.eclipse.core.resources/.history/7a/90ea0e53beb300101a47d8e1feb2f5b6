@@ -1,0 +1,24 @@
+package com.animal;
+
+//Parent Class
+class Animal {
+ void eat() {
+     System.out.println("This Animal eats food");
+ }
+}
+
+//Child Class
+class Dog extends Animal {
+ void bark() {
+     System.out.println("Dog barks");
+ }
+}
+
+//Main Class
+public class Inheritance {
+ public static void main(String[] args) {
+     Dog d = new Dog();   // Create object of child class
+     d.bark();            // Child class method
+     d.eat();             // Inherited method from parent
+ }
+}

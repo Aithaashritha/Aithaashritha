@@ -1,0 +1,5 @@
+package com.example.convergenceintegration.repository;
+
+public class TargetSystemRepository {
+
+}

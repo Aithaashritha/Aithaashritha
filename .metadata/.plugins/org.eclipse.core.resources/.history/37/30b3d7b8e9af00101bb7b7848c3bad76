@@ -1,0 +1,46 @@
+package com.example.convergenceintegration.controller;
+
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+import com.example.convergenceintegration.entity.TargetSystem;
+import com.example.convergenceintegration.service.TargetSystemService;
+import lombok.RequiredArgsConstructor;
+
+@RestController
+@RequestMapping("/api/targets")
+@RequiredArgsConstructor
+public class TargetSystemController {
+
+    private final TargetSystemService service;
+
+    // GET all targets
+    @GetMapping
+    public List<TargetSystem> getAllTargets() {
+        return service.getAllTargets();
+    }
+
+    // GET target by ID
+    @GetMapping("/{id}")
+    public TargetSystem getTargetById(@PathVariable Long id) {
+        return service.getTargetById(id);
+    }
+
+    // POST create target
+    @PostMapping
+    public TargetSystem createTarget(@RequestBody TargetSystem target) {
+        return service.createTarget(target);
+    }
+
+    // PUT update target
+    @PutMapping("/{id}")
+    public TargetSystem updateTarget(@PathVariable Long id, @RequestBody TargetSystem target) {
+        return service.updateTarget(id, target);
+    }
+
+    // DELETE target
+    @DeleteMapping("/{id}")
+    public String deleteTarget(@PathVariable Long id) {
+        service.deleteTarget(id);
+        return "Target system with ID " + id + " deleted successfully.";
+    }
+}

@@ -1,0 +1,38 @@
+package com.example.clinic.controller;
+
+import org.springframework.web.bind.annotation.*;
+import com.example.clinic.entity.Doctor;
+import com.example.clinic.service.DoctorService;
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/doctors")
+@CrossOrigin("*")
+public class DoctorController {
+
+    private final DoctorService service;
+
+    public DoctorController(DoctorService service) {
+        this.service = service;
+    }
+
+    @GetMapping
+    public List<Doctor> getAllDoctors() {
+        return service.getAllDoctors();
+    }
+
+    @GetMapping("/{id}")
+    public Doctor getDoctorById(@PathVariable Long id) {
+        return service.getDoctorById(id);
+    }
+
+    @PostMapping
+    public Doctor createDoctor(@RequestBody Doctor doctor) {
+        return service.saveDoctor(doctor);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteDoctor(@PathVariable Long id) {
+        service.deleteDoctor(id);
+    }
+}

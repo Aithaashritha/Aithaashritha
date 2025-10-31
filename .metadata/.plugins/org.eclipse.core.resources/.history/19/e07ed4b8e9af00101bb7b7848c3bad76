@@ -1,0 +1,33 @@
+package com.example.convergenceintegration.entity;
+
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+import lombok.*;
+
+@Entity
+@Table(name = "data_transfers")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class DataTransfer {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "source_system", nullable = false)
+    private String sourceSystem;
+
+    @Column(name = "target_system", nullable = false)
+    private String targetSystem;
+
+    @Column(name = "type", nullable = false)
+    private String type; // FULL or DELTA
+
+    @Column(name = "status", nullable = false)
+    private String status; // INITIATED, COMPLETED, etc.
+
+    @Column(name = "timestamp", nullable = false)
+    private LocalDateTime timestamp;
+}

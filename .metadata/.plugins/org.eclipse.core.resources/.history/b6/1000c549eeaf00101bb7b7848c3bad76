@@ -1,0 +1,52 @@
+package com.example.convergenceintegration.service;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import com.example.convergenceintegration.entity.DataTransfer;
+import com.example.convergenceintegration.repository.DataTransferRepository;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+@RequiredArgsConstructor
+public class DataTransferService {
+
+    private final DataTransferRepository repo;
+
+    public List<DataTransfer> getAllTransfers() {
+        return repo.findAll();
+    }
+
+    public Optional<DataTransfer> getTransferById(Long id) {
+        return repo.findById(id);
+    }
+
+    public DataTransfer initiateTransfer(String source, String target, String type) {
+        DataTransfer transfer = DataTransfer.builder()
+                .sourceSystem(source)
+                .targetSystem(target)
+                .transferType(type)
+                .startTime(LocalDateTime.now())
+                .status("IN_PROGRESS")
+                .build();
+        return repo.save(transfer);
+    }
+
+    public DataTransfer updateTransfer(Long id, DataTransfer updated) {
+        return repo.findById(id).map(t -> {
+            t.setSourceSystem(updated.getSourceSystem());
+            t.setTargetSystem(updated.getTargetSystem());
+            t.setTransferType(updated.getTransferType());
+            t.setStartTime(updated.getStartTime());
+            t.setEndTime(updated.getEndTime());
+            t.setStatus(updated.getStatus());
+            return repo.save(t);
+        }).orElseThrow(() -> new RuntimeException("Transfer not found"));
+    }
+
+    public void deleteTransfer(Long id) {
+        repo.deleteById(id);
+    }
+}

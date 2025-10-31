@@ -1,0 +1,34 @@
+package com.example.convergenceintegration.service;
+
+import org.springframework.stereotype.Service;
+import java.time.LocalDateTime;
+import java.util.List;
+import com.example.convergenceintegration.entity.DataTransfer;
+import com.example.convergenceintegration.repository.DataTransferRepository;
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class DataTransferService {
+    private final DataTransferRepository repo;
+
+    public List<DataTransfer> getAllTransfers() {
+        return repo.findAll();
+    }
+
+    public DataTransfer initiateTransfer(String source, String target, String type) {
+        DataTransfer transfer = DataTransfer.builder()
+                .sourceSystem(source)
+                .targetSystem(target)
+                .transferType(type)
+                .startTime(LocalDateTime.now())
+                .status("IN_PROGRESS")
+                .build();
+        transfer = repo.save(transfer);
+
+        // simulate transfer logic
+        transfer.setEndTime(LocalDateTime.now());
+        transfer.setStatus("SUCCESS");
+        return repo.save(transfer);
+    }
+}

@@ -1,0 +1,40 @@
+package com.example.mall.controller;
+
+import com.example.mall.entity.Shop;
+import com.example.mall.repository.ShopRepository;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/shops")
+public class ShopController {
+    private final ShopRepository repo;
+    public ShopController(ShopRepository repo){ this.repo = repo; }
+
+    @PostMapping
+    public ResponseEntity<Shop> create(@RequestBody Shop shop){
+        return ResponseEntity.ok(repo.save(shop));
+    }
+
+    @GetMapping
+    public List<Shop> all(){ return repo.findAll(); }
+
+    @GetMapping("/category/{category}")
+    public List<Shop> byCategory(@PathVariable String category){
+        return repo.findByCategory(category);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Shop> get(@PathVariable Long id){
+        return repo.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        repo.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+}

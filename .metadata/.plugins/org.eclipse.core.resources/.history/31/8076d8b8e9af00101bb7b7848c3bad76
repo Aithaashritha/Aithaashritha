@@ -1,0 +1,50 @@
+package com.example.convergenceintegration.service;
+
+import org.springframework.stereotype.Service;
+import java.util.List;
+import com.example.convergenceintegration.entity.TargetSystem;
+import com.example.convergenceintegration.repository.TargetSystemRepository;
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class TargetSystemService {
+
+    private final TargetSystemRepository repo;
+
+    // Get all targets
+    public List<TargetSystem> getAllTargets() {
+        return repo.findAll();
+    }
+
+    // Get target by ID
+    public TargetSystem getTargetById(Long id) {
+        return repo.findById(id)
+                   .orElseThrow(() -> new RuntimeException("Target system not found with ID: " + id));
+    }
+
+    // Create a new target
+    public TargetSystem createTarget(TargetSystem target) {
+        return repo.save(target);
+    }
+
+    // Update an existing target
+    public TargetSystem updateTarget(Long id, TargetSystem target) {
+        TargetSystem existing = repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Target system not found with ID: " + id));
+
+        existing.setName(target.getName());
+        existing.setDescription(target.getDescription());
+        existing.setStatus(target.getStatus());
+
+        return repo.save(existing);
+    }
+
+    // Delete target safely
+    public void deleteTarget(Long id) {
+        if (!repo.existsById(id)) {
+            throw new RuntimeException("Target system not found with ID: " + id);
+        }
+        repo.deleteById(id);
+    }
+}

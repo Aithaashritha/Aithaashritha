@@ -1,0 +1,31 @@
+package com.organization.service;
+
+import java.util.List;
+import org.springframework.stereotype.Service;
+import com.organization.entity.Student;
+import com.organization.repository.StudentRepository;
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class StudentService {
+
+    private final StudentRepository repo;
+
+    public List<Student> getAllStudents() {
+        return repo.findAll();
+    }
+
+    public Student saveStudent(Student student) {
+        return repo.save(student);
+    }
+
+    public Student getStudentById(Long id) {
+        return repo.findById(id).orElse(null);
+    }
+
+    public String deleteStudent(Long id) {
+        repo.deleteById(id);
+        return "Student deleted with ID: " + id;
+    }
+}

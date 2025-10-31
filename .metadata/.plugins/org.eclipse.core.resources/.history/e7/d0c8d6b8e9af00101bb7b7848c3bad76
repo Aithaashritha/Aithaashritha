@@ -1,0 +1,41 @@
+package com.example.convergenceintegration.service;
+
+import org.springframework.stereotype.Service;
+import java.time.LocalDateTime;
+import java.util.List;
+import com.example.convergenceintegration.entity.DataTransfer;
+import com.example.convergenceintegration.repository.DataTransferRepository;
+
+@Service
+public class DataTransferService {
+
+    private final DataTransferRepository repo;
+
+    public DataTransferService(DataTransferRepository repo) {
+        this.repo = repo;
+    }
+
+    public List<DataTransfer> getAllTransfers() {
+        return repo.findAll();
+    }
+
+    public DataTransfer initiateTransfer(String source, String target, String type) {
+        // Create new transfer entry
+        DataTransfer transfer = new DataTransfer();
+        transfer.setSourceSystem(source);
+        transfer.setTargetSystem(target);
+        transfer.setTransferType(type);
+        transfer.setStartTime(LocalDateTime.now());
+        transfer.setStatus("IN_PROGRESS");
+
+        // Save initial entry
+        transfer = repo.save(transfer);
+
+        // Simulate transfer processing
+        transfer.setEndTime(LocalDateTime.now());
+        transfer.setStatus("SUCCESS");
+
+        // Save final status
+        return repo.save(transfer);
+    }
+}

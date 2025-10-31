@@ -1,0 +1,27 @@
+package com.example.convergenceintegration.controller;
+
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+import com.example.convergenceintegration.entity.SourceSystem;
+import com.example.convergenceintegration.service.SourceSystemService;
+
+@RestController
+@RequestMapping("/api/sources")
+public class SourceSystemController {
+
+    private final SourceSystemService service;
+
+    public SourceSystemController(SourceSystemService service) {
+        this.service = service;
+    }
+
+    @GetMapping
+    public List<SourceSystem> getAll() {
+        return service.getAllSources();
+    }
+
+    @PostMapping("/create")
+    public SourceSystem create(@RequestBody SourceSystem source) {
+        return service.createSource(source);
+    }
+}

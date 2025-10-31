@@ -1,0 +1,49 @@
+package com.example.convergenceintegration.controller;
+
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+import com.example.convergenceintegration.entity.DataTransfer;
+import com.example.convergenceintegration.service.DataTransferService;
+
+@RestController
+@RequestMapping("/api/transfers")
+public class DataTransferController {
+
+    private final DataTransferService service;
+
+    public DataTransferController(DataTransferService service) {
+        this.service = service;
+    }
+
+    // GET all transfers
+    @GetMapping
+    public List<DataTransfer> getAll() {
+        return service.getAllTransfers();
+    }
+
+    // GET a transfer by ID
+    @GetMapping("/{id}")
+    public DataTransfer getById(@PathVariable Long id) {
+        return service.getTransferById(id);
+    }
+
+    // POST initiate transfer
+    @PostMapping
+    public DataTransfer create(@RequestBody DataTransfer dataTransfer) {
+        return service.createTransfer(dataTransfer);
+    }
+
+    // PUT update transfer
+    @PutMapping("/{id}")
+    public DataTransfer update(@PathVariable Long id,
+                               @RequestBody DataTransfer dataTransfer) {
+        return service.updateTransfer(id, dataTransfer);
+    }
+
+    // DELETE a transfer
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable Long id) {
+        service.deleteTransfer(id);
+        return "Transfer with ID " + id + " deleted successfully.";
+    }
+}

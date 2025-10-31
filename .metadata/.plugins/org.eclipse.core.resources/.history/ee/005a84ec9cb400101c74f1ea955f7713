@@ -1,0 +1,5 @@
+package com.example.doctorpatient.repository;
+
+public class PatientRepository {
+
+}

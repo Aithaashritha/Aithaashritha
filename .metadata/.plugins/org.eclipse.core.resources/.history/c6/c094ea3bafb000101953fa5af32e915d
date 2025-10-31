@@ -1,0 +1,32 @@
+package com.example.mall.entity;
+
+import jakarta.persistence.*;
+import lombok.*;
+import java.util.List;
+
+@Entity
+@Table(name = "shops")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Shop {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+    private String category;
+    private String ownerName;
+    private String contact;
+
+    @ManyToOne
+    @JoinColumn(name = "mall_id")
+    private Mall mall;
+
+    @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Product> products;
+
+    @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Staff> staff;
+}

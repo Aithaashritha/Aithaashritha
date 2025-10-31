@@ -1,0 +1,27 @@
+package com.example.convergenceintegration.controller;
+
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+import com.example.convergenceintegration.entity.TargetSystem;
+import com.example.convergenceintegration.service.TargetSystemService;
+
+@RestController
+@RequestMapping("/api/targets")
+public class TargetSystemController {
+
+    private final TargetSystemService service;
+
+    public TargetSystemController(TargetSystemService service) {
+        this.service = service;
+    }
+
+    @GetMapping
+    public List<TargetSystem> getAll() {
+        return service.getAllTargets();
+    }
+
+    @PostMapping("/create")
+    public TargetSystem create(@RequestBody TargetSystem target) {
+        return service.createTarget(target);
+    }
+}

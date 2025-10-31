@@ -1,0 +1,61 @@
+package com.encapsulation;
+
+class Employee {
+    // Step 1: Make variables private
+    private int empId;
+    private String empName;
+    private double salary;
+
+    // Step 2: Provide public getter and setter methods
+    public int getEmpId() {
+        return empId;
+    }
+
+    public void setEmpId(int empId) {
+        if (empId > 0) {  // Example of validation
+            this.empId = empId;
+        } else {
+            System.out.println("Invalid Employee ID");
+        }
+    }
+
+    public String getEmpName() {
+        return empName;
+    }
+
+    public void setEmpName(String empName) {
+        if (empName != null && !empName.isEmpty()) {
+            this.empName = empName;
+        } else {
+            System.out.println("Employee name cannot be empty");
+        }
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(double salary) {
+        if (salary >= 10000) { // Example of business logic
+            this.salary = salary;
+        } else {
+            System.out.println("Salary must be at least 10,000");
+        }
+    }
+}
+
+public class EncapsulationExample {
+    public static void main(String[] args) {
+        Employee e1 = new Employee();
+
+        // Setting values using setters
+        e1.setEmpId(101);
+        e1.setEmpName("Swathi");
+        e1.setSalary(2000);
+
+        // Accessing values using getters
+        System.out.println("Employee ID: " + e1.getEmpId());
+        System.out.println("Employee Name: " + e1.getEmpName());
+        System.out.println("Employee Salary: " + e1.getSalary());
+    }
+}

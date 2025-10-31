@@ -1,0 +1,13 @@
+com\example\convergenceintegration\controller\DataTransferController.class
+com\example\convergenceintegration\service\SourceSystemService.class
+com\example\convergenceintegration\entity\DataTransfer.class
+com\example\convergenceintegration\repository\SourceSystemRepository.class
+com\example\convergenceintegration\repository\TargetSystemRepository.class
+com\example\convergenceintegration\ConvergenceIntegrationApplication.class
+com\example\convergenceintegration\controller\TargetSystemController.class
+com\example\convergenceintegration\repository\DataTransferRepository.class
+com\example\convergenceintegration\service\TargetSystemService.class
+com\example\convergenceintegration\controller\SourceSystemController.class
+com\example\convergenceintegration\service\DataTransferService.class
+com\example\convergenceintegration\entity\SourceSystem.class
+com\example\convergenceintegration\entity\TargetSystem.class

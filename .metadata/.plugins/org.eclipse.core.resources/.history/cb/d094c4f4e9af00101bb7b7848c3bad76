@@ -1,0 +1,50 @@
+package com.example.convergenceintegration.service;
+
+import org.springframework.stereotype.Service;
+import java.util.List;
+import com.example.convergenceintegration.entity.SourceSystem;
+import com.example.convergenceintegration.repository.SourceSystemRepository;
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class SourceSystemService {
+
+    private final SourceSystemRepository repo;
+
+    // Get all sources
+    public List<SourceSystem> getAllSources() {
+        return repo.findAll();
+    }
+
+    // Get source by ID
+    public SourceSystem getSourceById(Long id) {
+        return repo.findById(id)
+                   .orElseThrow(() -> new RuntimeException("Source system not found with ID: " + id));
+    }
+
+    // Create a new source
+    public SourceSystem createSource(SourceSystem source) {
+        return repo.save(source);
+    }
+
+    // Update an existing source
+    public SourceSystem updateSource(Long id, SourceSystem source) {
+        SourceSystem existing = repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Source system not found with ID: " + id));
+
+        existing.setName(source.getName());
+        existing.setDescription(source.getDescription());
+        existing.setStatus(source.getStatus());
+
+        return repo.save(existing);
+    }
+
+    // Delete source safely
+    public void deleteSource(Long id) {
+        if (!repo.existsById(id)) {
+            throw new RuntimeException("Source system not found with ID: " + id);
+        }
+        repo.deleteById(id);
+    }
+}

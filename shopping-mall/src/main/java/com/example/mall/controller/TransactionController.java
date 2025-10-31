@@ -1,0 +1,43 @@
+package com.example.mall.controller;
+
+import com.example.mall.entity.TransactionRecord;
+import com.example.mall.service.TransactionService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/transactions")
+public class TransactionController {
+
+    private final TransactionService service;
+
+    public TransactionController(TransactionService service) {
+        this.service = service;
+    }
+
+    @GetMapping
+    public List<TransactionRecord> getAll() {
+        return service.getAllTransactions();
+    }
+
+    @GetMapping("/{id}")
+    public TransactionRecord getById(@PathVariable Long id) {
+        return service.getTransactionById(id);
+    }
+
+    @PostMapping
+    public TransactionRecord create(@RequestBody TransactionRecord transaction) {
+        return service.createTransaction(transaction);
+    }
+
+    @PutMapping("/{id}")
+    public TransactionRecord update(@PathVariable Long id, @RequestBody TransactionRecord transaction) {
+        return service.updateTransaction(id, transaction);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        service.deleteTransaction(id);
+    }
+}

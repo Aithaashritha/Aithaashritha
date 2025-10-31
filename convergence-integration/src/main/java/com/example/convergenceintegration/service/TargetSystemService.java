@@ -1,0 +1,43 @@
+package com.example.convergenceintegration.service;
+
+import org.springframework.stereotype.Service;
+import com.example.convergenceintegration.entity.TargetSystem;
+import com.example.convergenceintegration.repository.TargetSystemRepository;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class TargetSystemService {
+
+    private final TargetSystemRepository repo;
+
+    public TargetSystemService(TargetSystemRepository repo) {
+        this.repo = repo;
+    }
+
+    public List<TargetSystem> getAllTargets() {
+        return repo.findAll();
+    }
+
+    public Optional<TargetSystem> getTargetById(Long id) {
+        return repo.findById(id);
+    }
+
+    public TargetSystem createTarget(TargetSystem target) {
+        return repo.save(target);
+    }
+
+    public TargetSystem updateTarget(Long id, TargetSystem updated) {
+        return repo.findById(id).map(t -> {
+            t.setSystemName(updated.getSystemName());
+            t.setApiEndpoint(updated.getApiEndpoint());
+            t.setDataFormat(updated.getDataFormat());
+            return repo.save(t);
+        }).orElseThrow(() -> new RuntimeException("Target system not found"));
+    }
+
+    public void deleteTarget(Long id) {
+        repo.deleteById(id);
+    }
+}

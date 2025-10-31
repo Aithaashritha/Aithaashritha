@@ -1,0 +1,24 @@
+package com.example.convergenceintegration.service;
+
+import org.springframework.stereotype.Service;
+import java.util.List;
+import com.example.convergenceintegration.entity.TargetSystem;
+import com.example.convergenceintegration.repository.TargetSystemRepository;
+
+@Service
+public class TargetSystemService {
+
+    private final TargetSystemRepository repo;
+
+    public TargetSystemService(TargetSystemRepository repo) {
+        this.repo = repo;
+    }
+
+    public List<TargetSystem> getAllTargets() {
+        return repo.findAll();
+    }
+
+    public TargetSystem createTarget(TargetSystem target) {
+        return repo.save(target);
+    }
+}

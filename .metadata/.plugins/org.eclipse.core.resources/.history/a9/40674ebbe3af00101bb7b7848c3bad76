@@ -1,0 +1,24 @@
+package com.example.client360.service;
+
+import org.springframework.stereotype.Service;
+import java.util.List;
+import com.example.client360.entity.Project;
+import com.example.client360.Repository.ProjectRepository;
+
+@Service
+public class ProjectService {
+
+    private final ProjectRepository repo;
+
+    public ProjectService(ProjectRepository repo) {
+        this.repo = repo;
+    }
+
+    public List<Project> getAllProjects() {
+        return repo.findAll();
+    }
+
+    public Project createProject(Project project) {
+        return repo.save(project);
+    }
+}

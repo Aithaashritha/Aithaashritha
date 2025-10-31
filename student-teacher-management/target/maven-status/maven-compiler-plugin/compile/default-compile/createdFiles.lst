@@ -1,0 +1,15 @@
+com\organization\service\UserService.class
+com\organization\StudentTeacherManagementApplication.class
+com\organization\entity\User.class
+com\organization\entity\Teacher.class
+com\organization\repository\UserRepository.class
+com\organization\service\TeacherService.class
+com\organization\controller\StudentController.class
+com\organization\repository\TeacherRepository.class
+com\organization\entity\Student.class
+com\organization\repository\RoleRepository.class
+com\organization\repository\StudentRepository.class
+com\organization\controller\TeacherController.class
+com\organization\entity\Role.class
+com\organization\controller\UserController.class
+com\organization\service\StudentService.class

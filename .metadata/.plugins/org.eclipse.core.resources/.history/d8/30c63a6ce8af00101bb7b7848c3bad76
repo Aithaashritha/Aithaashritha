@@ -1,0 +1,66 @@
+package com.example.convergenceintegration.service;
+
+import org.springframework.stereotype.Service;
+import java.time.LocalDateTime;
+import java.util.List;
+
+import com.example.convergenceintegration.entity.DataTransfer;
+import com.example.convergenceintegration.repository.DataTransferRepository;
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class DataTransferService {
+
+    private final DataTransferRepository repo;
+
+    // Get all transfers
+    public List<DataTransfer> getAllTransfers() {
+        return repo.findAll();
+    }
+
+    // Get transfer by ID
+    public DataTransfer getTransferById(Long id) {
+        return repo.findById(id)
+                   .orElseThrow(() -> new RuntimeException("Transfer not found with ID: " + id));
+    }
+
+    // Create a new transfer
+    public DataTransfer createTransfer(DataTransfer dataTransfer) {
+        dataTransfer.setTimestamp(LocalDateTime.now());
+        return repo.save(dataTransfer);
+    }
+
+    // Update existing transfer
+    public DataTransfer updateTransfer(Long id, DataTransfer dataTransfer) {
+        DataTransfer existing = repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Transfer not found with ID: " + id));
+        
+        existing.setSourceSystem(dataTransfer.getSourceSystem());
+        existing.setTargetSystem(dataTransfer.getTargetSystem());
+        existing.setType(dataTransfer.getType());
+        existing.setStatus(dataTransfer.getStatus());
+        existing.setTimestamp(LocalDateTime.now());
+        
+        return repo.save(existing);
+    }
+
+    // Delete transfer by ID
+    public void deleteTransfer(Long id) {
+        if (!repo.existsById(id)) {
+            throw new RuntimeException("Transfer not found with ID: " + id);
+        }
+        repo.deleteById(id);
+    }
+
+    // Initiate a transfer
+    public DataTransfer initiateTransfer(String source, String target, String type) {
+        DataTransfer transfer = new DataTransfer();
+        transfer.setSourceSystem(source);
+        transfer.setTargetSystem(target);
+        transfer.setType(type);
+        transfer.setStatus("INITIATED");
+        transfer.setTimestamp(LocalDateTime.now());
+        return repo.save(transfer);
+    }
+}

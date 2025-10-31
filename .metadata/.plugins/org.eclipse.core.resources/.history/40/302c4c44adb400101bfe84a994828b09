@@ -1,0 +1,45 @@
+package com.example.clinic.service;
+
+import org.springframework.stereotype.Service;
+import com.example.clinic.entity.Patient;
+import com.example.clinic.repository.PatientRepository;
+import java.util.List;
+
+@Service
+public class PatientService {
+
+    private final PatientRepository repo;
+
+    public PatientService(PatientRepository repo) {
+        this.repo = repo;
+    }
+
+    public List<Patient> getAllPatients() {
+        return repo.findAll();
+    }
+
+    public Patient getPatientById(Long id) {
+        return repo.findById(id).orElse(null);
+    }
+
+    public Patient savePatient(Patient patient) {
+        return repo.save(patient);
+    }
+
+    public Patient updatePatient(Long id, Patient patient) {
+        Patient existing = repo.findById(id).orElse(null);
+        if (existing != null) {
+            existing.setName(patient.getName());
+            existing.setAge(patient.getAge());
+            existing.setGender(patient.getGender());
+            existing.setEmail(patient.getEmail());
+            existing.setPhone(patient.getPhone());
+            return repo.save(existing);
+        }
+        return null;
+    }
+
+    public void deletePatient(Long id) {
+        repo.deleteById(id);
+    }
+}

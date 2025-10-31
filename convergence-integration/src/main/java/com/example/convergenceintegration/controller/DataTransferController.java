@@ -1,0 +1,48 @@
+package com.example.convergenceintegration.controller;
+
+import org.springframework.web.bind.annotation.*;
+import com.example.convergenceintegration.entity.DataTransfer;
+import com.example.convergenceintegration.service.DataTransferService;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/transfers")
+public class DataTransferController {
+
+    private final DataTransferService service;
+
+    // Explicit constructor injection
+    public DataTransferController(DataTransferService service) {
+        this.service = service;
+    }
+
+    @GetMapping
+    public List<DataTransfer> getAll() {
+        return service.getAllTransfers();
+    }
+
+    @GetMapping("/{id}")
+    public DataTransfer getById(@PathVariable Long id) {
+        return service.getTransferById(id)
+                .orElseThrow(() -> new RuntimeException("Transfer not found"));
+    }
+
+    @PostMapping("/initiate")
+    public DataTransfer initiate(@RequestParam String source,
+                                 @RequestParam String target,
+                                 @RequestParam(defaultValue = "FULL") String type) {
+        return service.initiateTransfer(source, target, type);
+    }
+
+    @PutMapping("/{id}")
+    public DataTransfer update(@PathVariable Long id, @RequestBody DataTransfer transfer) {
+        return service.updateTransfer(id, transfer);
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable Long id) {
+        service.deleteTransfer(id);
+        return "Deleted transfer with id: " + id;
+    }
+}

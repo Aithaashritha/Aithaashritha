@@ -1,0 +1,48 @@
+package com.example.convergenceintegration.controller;
+
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+import com.example.convergenceintegration.entity.SourceSystem;
+import com.example.convergenceintegration.service.SourceSystemService;
+
+@RestController
+@RequestMapping("/api/sources")
+public class SourceSystemController {
+
+    private final SourceSystemService service;
+
+    public SourceSystemController(SourceSystemService service) {
+        this.service = service;
+    }
+
+    // GET all sources
+    @GetMapping
+    public List<SourceSystem> getAll() {
+        return service.getAllSources();
+    }
+
+    // GET source by ID
+    @GetMapping("/{id}")
+    public SourceSystem getById(@PathVariable Long id) {
+        return service.getSourceById(id);
+    }
+
+    // POST create new source
+    @PostMapping
+    public SourceSystem create(@RequestBody SourceSystem source) {
+        return service.createSource(source);
+    }
+
+    // PUT update source
+    @PutMapping("/{id}")
+    public SourceSystem update(@PathVariable Long id, @RequestBody SourceSystem source) {
+        return service.updateSource(id, source);
+    }
+
+    // DELETE source
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable Long id) {
+        service.deleteSource(id);
+        return "Source system with ID " + id + " deleted successfully.";
+    }
+}

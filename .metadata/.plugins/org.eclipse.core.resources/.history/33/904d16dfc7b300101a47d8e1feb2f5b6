@@ -1,0 +1,119 @@
+package com.encapsulation;
+
+class Employee
+{
+	private int empID;
+	private String empName;
+	private int empAge;
+	private String empLocation;
+	private double Salary;
+	
+	public int getID()
+	{
+		return empID;
+	}
+	public void setempID(int empID)
+	{
+		if (empID>0)
+		{
+			this.empID=empID;
+		}
+		else {
+			System.out.println("Invalid employee Id");
+		}
+	}
+	
+	public String getempName()
+	{
+		return empName;
+	}
+	public void setempName(String empName)
+	{
+		if(empName != null && !empName.isEmpty())
+		{
+			this.empName=empName;
+		}
+		else
+		{
+			System.out.println("Employee name cannot be empty....");
+		}
+	}
+	public int getAge()
+	{
+		return empAge;
+	}
+	public void setempAge(int empAge)
+	{
+		if (empAge>18)
+		{
+			this.empAge=empAge;
+		}
+		else {
+			System.out.println("Invalid employee Age");
+		}
+	}
+	public String getempLoaction()
+	{
+		return empLocation;
+	}
+	public void setempLocation(String empLocation)
+	{
+		if(empLocation != null && !empLocation.isEmpty())
+		{
+			this.empLocation = empLocation;
+		}
+		else
+		{
+			System.out.println("Employee Location cannot be empty....");
+		}
+	}
+
+    public double getSalary() {
+        return Salary;
+    }
+
+    public void setSalary(double salary) {
+        if (salary >= 10000) { // Example of business logic
+            this.Salary = salary;
+        } else {
+            System.out.println("Salary must be at least 10,000");
+        }
+    }
+}
+
+public class Encapsulation
+{
+	public static void main(String[]args)
+	{
+		Employee emp = new Employee();
+		Employee emp1 = new Employee();
+		
+		emp.setempID(1001);
+		emp.setempName("Geetha");
+		emp.setempAge(23);
+		emp.setempLocation("Hyderabad");
+		emp.setSalary(35000);
+		
+		System.out.println("Employee Id:" + emp.getID());
+		System.out.println("Employee Name:" + emp.getempName());
+		System.out.println("Employee Age:" + emp.getAge());
+		System.out.println("Employee Location:" + emp.getempLoaction());
+		System.out.println("Employee Salary:" + emp.getSalary());
+		
+		System.out.println("******************************************");
+		
+		emp1.setempID(1002);
+		emp1.setempName("Reha");
+		emp1.setempAge(28);
+		emp1.setempLocation("Hyderabad");
+		emp1.setSalary(65000);
+		
+		System.out.println("Employee Id:" + emp1.getID());
+		System.out.println("Employee Name:" + emp1.getempName());
+		System.out.println("Employee Age:" + emp1.getAge());
+		System.out.println("Employee Location:" + emp1.getempLoaction());
+		System.out.println("Employee Salary:" + emp1.getSalary());
+		
+		
+	}
+}
